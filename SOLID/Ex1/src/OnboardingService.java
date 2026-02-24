@@ -2,19 +2,19 @@ import java.util.*;
 
 public class OnboardingService {
     private final FakeDb db;
+    private final InputParser inputParser;
 
-    public OnboardingService(FakeDb db) { this.db = db; }
+    public OnboardingService(FakeDb db, InputParser inputParser) {
+        this.db = db;
+        this.inputParser = inputParser;
+    }
+
 
     // Intentionally violates SRP: parses + validates + creates ID + saves + prints.
     public void registerFromRawInput(String raw) {
         System.out.println("INPUT: " + raw);
 
-        Map<String,String> kv = new LinkedHashMap<>();
-        String[] parts = raw.split(";");
-        for (String p : parts) {
-            String[] t = p.split("=", 2);
-            if (t.length == 2) kv.put(t[0].trim(), t[1].trim());
-        }
+        Map<String, String> kv = inputParser.parseInput(raw);
 
         String name = kv.getOrDefault("name", "");
         String email = kv.getOrDefault("email", "");
