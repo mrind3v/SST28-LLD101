@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class FakeDb implements Repository{
+public class FakeDb implements OnboardingRepository {
     private final List<StudentRecord> rows = new ArrayList<>();
 
 

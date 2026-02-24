@@ -1,6 +1,6 @@
 # SST28-LLD101 — Refactoring Practice (SOLID)
 
-This repository contains **10 refactoring exercises** for Scaler School of Technology students who have already covered OOP basics and are now practicing **SOLID** via behavior-preserving refactors.
+This onboardingRepository contains **10 refactoring exercises** for Scaler School of Technology students who have already covered OOP basics and are now practicing **SOLID** via behavior-preserving refactors.
 
 Each exercise starts with:
 - **Working code** (compiles + runs)
