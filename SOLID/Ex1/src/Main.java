@@ -4,7 +4,8 @@ public class Main {
         FakeDb db = new FakeDb();
         InputParser inputParser = new InputParser();
         InputValidator inputValidator = new InputValidator();
-        OnboardingService svc = new OnboardingService(db,inputParser, inputValidator);
+        OnboardingService svc = new OnboardingService(db,inputParser, inputValidator,db);
+
 
         String raw = "name=Riya;email=riya@sst.edu;phone=9876543210;program=CSE";
         svc.registerFromRawInput(raw);

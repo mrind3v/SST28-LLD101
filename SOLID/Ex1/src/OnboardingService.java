@@ -1,13 +1,13 @@
 import java.util.*;
 
 public class OnboardingService {
-    private final FakeDb db;
     private final InputParser inputParser;
     private final InputValidator inputValidator;
-    public OnboardingService(FakeDb db, InputParser inputParser, InputValidator inputValidator) {
-        this.db = db;
+    private final Repository repository;
+    public OnboardingService(FakeDb db, InputParser inputParser, InputValidator inputValidator, Repository repository) {
         this.inputParser = inputParser;
         this.inputValidator = inputValidator;
+        this.repository = repository;
     }
 
 
@@ -17,13 +17,14 @@ public class OnboardingService {
 
         Map<String, String> kv = inputParser.parseInput(raw);
         List<String> errors = inputValidator.validateInput(kv);
+
         if (!errors.isEmpty()) {
             System.out.println("ERROR: cannot register");
             for (String e : errors) System.out.println("- " + e);
             return;
         }
 
-        String id = IdUtil.nextStudentId(db.count());
+        String id = IdUtil.nextStudentId(repository.count());
         String name = kv.getOrDefault("name", "");
         String email = kv.getOrDefault("name", "");
         String phone = kv.getOrDefault("phone","");
@@ -31,10 +32,10 @@ public class OnboardingService {
         StudentRecord rec = new StudentRecord(id, name, email, phone, program);
 
 
-        db.save(rec);
+        repository.save(rec);
 
         System.out.println("OK: created student " + id);
-        System.out.println("Saved. Total students: " + db.count());
+        System.out.println("Saved. Total students: " + repository.count());
         System.out.println("CONFIRMATION:");
         System.out.println(rec);
     }
