@@ -3,10 +3,11 @@ import java.util.*;
 public class OnboardingService {
     private final FakeDb db;
     private final InputParser inputParser;
-
-    public OnboardingService(FakeDb db, InputParser inputParser) {
+    private final InputValidator inputValidator;
+    public OnboardingService(FakeDb db, InputParser inputParser, InputValidator inputValidator) {
         this.db = db;
         this.inputParser = inputParser;
+        this.inputValidator = inputValidator;
     }
 
 
@@ -15,19 +16,7 @@ public class OnboardingService {
         System.out.println("INPUT: " + raw);
 
         Map<String, String> kv = inputParser.parseInput(raw);
-
-        String name = kv.getOrDefault("name", "");
-        String email = kv.getOrDefault("email", "");
-        String phone = kv.getOrDefault("phone", "");
-        String program = kv.getOrDefault("program", "");
-
-        // validation inline, printing inline
-        List<String> errors = new ArrayList<>();
-        if (name.isBlank()) errors.add("name is required");
-        if (email.isBlank() || !email.contains("@")) errors.add("email is invalid");
-        if (phone.isBlank() || !phone.chars().allMatch(Character::isDigit)) errors.add("phone is invalid");
-        if (!(program.equals("CSE") || program.equals("AI") || program.equals("SWE"))) errors.add("program is invalid");
-
+        List<String> errors = inputValidator.validateInput(kv);
         if (!errors.isEmpty()) {
             System.out.println("ERROR: cannot register");
             for (String e : errors) System.out.println("- " + e);
@@ -35,7 +24,12 @@ public class OnboardingService {
         }
 
         String id = IdUtil.nextStudentId(db.count());
+        String name = kv.getOrDefault("name", "");
+        String email = kv.getOrDefault("name", "");
+        String phone = kv.getOrDefault("phone","");
+        String program = kv.getOrDefault("program","");
         StudentRecord rec = new StudentRecord(id, name, email, phone, program);
+
 
         db.save(rec);
 
