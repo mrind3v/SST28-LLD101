@@ -5,7 +5,8 @@ public class Main {
         System.out.println("=== Cafeteria Billing ===");
 
         PricingCalculator pricingCalculator = new PricingCalculator();
-        CafeteriaSystem sys = new CafeteriaSystem(pricingCalculator);
+        InvoiceFormatter invoiceFormatter = new InvoiceFormatter();
+        CafeteriaSystem sys = new CafeteriaSystem(pricingCalculator, invoiceFormatter);
         sys.addToMenu(new MenuItem("M1", "Veg Thali", 80.00));
         sys.addToMenu(new MenuItem("C1", "Coffee", 30.00));
         sys.addToMenu(new MenuItem("S1", "Sandwich", 60.00));

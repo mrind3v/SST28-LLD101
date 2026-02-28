@@ -5,26 +5,22 @@ public class CafeteriaSystem {
     private final FileStore store = new FileStore();
     private int invoiceSeq = 1000;
     private final PricingCalculator pricingCalculator;
+    private final InvoiceFormatter invoiceFormatter;
 
-    public CafeteriaSystem(PricingCalculator pricingCalculator) {
+    public CafeteriaSystem(PricingCalculator pricingCalculator, InvoiceFormatter invoiceFormatter) {
         this.pricingCalculator = pricingCalculator;
+        this.invoiceFormatter = invoiceFormatter;
     }
     public void addToMenu(MenuItem i) { menu.put(i.id, i); }
 
     // Intentionally SRP-violating: menu mgmt + tax + discount + format + persistence.
     public void checkout(String customerType, List<OrderLine> lines) {
-        String invId = "INV-" + (++invoiceSeq);
-        StringBuilder out = new StringBuilder();
-        out.append("Invoice# ").append(invId).append("\n");
 
         InvoiceData invoiceData = pricingCalculator.calculate(lines,menu,customerType);
 
-        out.append(String.format("Subtotal: %.2f\n", invoiceData.subtotal));
-        out.append(String.format("Tax(%.0f%%): %.2f\n", invoiceData.taxPct, invoiceData.tax));
-        out.append(String.format("Discount: -%.2f\n",invoiceData.discount));
-        out.append(String.format("TOTAL: %.2f\n",invoiceData.total));
 
-        String printable = InvoiceFormatter.identityFormat(out.toString());
+        String invId = "INV-" + (++invoiceSeq);
+        String printable = invoiceFormatter.format(invId,invoiceSeq, invoiceData);
         System.out.print(printable);
 
         store.save(invId, printable);
