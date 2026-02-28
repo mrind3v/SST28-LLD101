@@ -4,10 +4,10 @@ public class CafeteriaSystem {
     private final Map<String, MenuItem> menu = new LinkedHashMap<>();
     private final FileStore store = new FileStore();
     private int invoiceSeq = 1000;
-    private final Pricing pricing;
+    private final PricingCalculator pricingCalculator;
 
-    public CafeteriaSystem(Pricing pricing) {
-        this.pricing = pricing;
+    public CafeteriaSystem(PricingCalculator pricingCalculator) {
+        this.pricingCalculator = pricingCalculator;
     }
     public void addToMenu(MenuItem i) { menu.put(i.id, i); }
 
@@ -17,12 +17,12 @@ public class CafeteriaSystem {
         StringBuilder out = new StringBuilder();
         out.append("Invoice# ").append(invId).append("\n");
 
-        pricing.calculate(lines,menu,customerType);
+        InvoiceData invoiceData = pricingCalculator.calculate(lines,menu,customerType);
 
-        out.append(String.format("Subtotal: %.2f\n", pricing.getSubtotal()));
-        out.append(String.format("Tax(%.0f%%): %.2f\n", pricing.getTaxPct(), pricing.getTax()));
-        out.append(String.format("Discount: -%.2f\n", pricing.getDiscount()));
-        out.append(String.format("TOTAL: %.2f\n", pricing.getTotal()));
+        out.append(String.format("Subtotal: %.2f\n", invoiceData.subtotal));
+        out.append(String.format("Tax(%.0f%%): %.2f\n", invoiceData.taxPct, invoiceData.tax));
+        out.append(String.format("Discount: -%.2f\n",invoiceData.discount));
+        out.append(String.format("TOTAL: %.2f\n",invoiceData.total));
 
         String printable = InvoiceFormatter.identityFormat(out.toString());
         System.out.print(printable);
