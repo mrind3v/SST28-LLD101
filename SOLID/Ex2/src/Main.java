@@ -8,7 +8,8 @@ public class Main {
         InvoiceFormatter invoiceFormatter = new InvoiceFormatter();
         FileStore fs  = new FileStore();
         InvoiceIdGenerator invoiceIdGenerator = new InvoiceIdGenerator();
-        CafeteriaSystem sys = new CafeteriaSystem(pricingCalculator, invoiceFormatter,fs, invoiceIdGenerator);
+        ConsoleDisplay consoleDisplay = new ConsoleDisplay();
+        CafeteriaSystem sys = new CafeteriaSystem(pricingCalculator, invoiceFormatter,fs, invoiceIdGenerator, consoleDisplay);
         sys.addToMenu(new MenuItem("M1", "Veg Thali", 80.00));
         sys.addToMenu(new MenuItem("C1", "Coffee", 30.00));
         sys.addToMenu(new MenuItem("S1", "Sandwich", 60.00));

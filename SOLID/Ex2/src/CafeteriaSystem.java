@@ -7,11 +7,13 @@ public class CafeteriaSystem {
     private final PricingCalculator pricingCalculator;
     private final InvoiceFormatter invoiceFormatter;
     private final IInvoiceIdGenerator iInvoiceIdGenerator;
-    public CafeteriaSystem(PricingCalculator pricingCalculator, InvoiceFormatter invoiceFormatter, Repository repository, IInvoiceIdGenerator iInvoiceIdGenerator) {
+    private final OutputDisplay outputDisplay;
+    public CafeteriaSystem(PricingCalculator pricingCalculator, InvoiceFormatter invoiceFormatter, Repository repository, IInvoiceIdGenerator iInvoiceIdGenerator, OutputDisplay outputDisplay) {
         this.pricingCalculator = pricingCalculator;
         this.invoiceFormatter = invoiceFormatter;
         this.repository = repository;
         this.iInvoiceIdGenerator = iInvoiceIdGenerator;
+        this.outputDisplay = outputDisplay;
     }
     public void addToMenu(MenuItem i) { menu.put(i.id, i); }
 
@@ -22,9 +24,11 @@ public class CafeteriaSystem {
 
         String invId =  iInvoiceIdGenerator.nextId();
         String printable = invoiceFormatter.format(invId, invoiceData);
-        System.out.print(printable);
+        outputDisplay.show(printable);
+
 
         repository.save(invId, printable);
-        System.out.println("Saved invoice: " + invId + " (lines=" + repository.countLines(invId) + ")");
+        outputDisplay.show("Saved invoice: " + invId + " (lines=" + repository.countLines(invId) + ")");
+
     }
 }
