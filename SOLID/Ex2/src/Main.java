@@ -6,7 +6,8 @@ public class Main {
 
         PricingCalculator pricingCalculator = new PricingCalculator();
         InvoiceFormatter invoiceFormatter = new InvoiceFormatter();
-        CafeteriaSystem sys = new CafeteriaSystem(pricingCalculator, invoiceFormatter);
+        FileStore fs  = new FileStore();
+        CafeteriaSystem sys = new CafeteriaSystem(pricingCalculator, invoiceFormatter,fs);
         sys.addToMenu(new MenuItem("M1", "Veg Thali", 80.00));
         sys.addToMenu(new MenuItem("C1", "Coffee", 30.00));
         sys.addToMenu(new MenuItem("S1", "Sandwich", 60.00));
