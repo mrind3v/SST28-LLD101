@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class HostelFeeCalculator {
-    private final FakeBookingRepo repo;
+    private final Repository repo;
 
-    public HostelFeeCalculator(FakeBookingRepo repo) { this.repo = repo; }
+    public HostelFeeCalculator(Repository repo) { this.repo = repo; }
 
     // OCP violation: switch + add-on branching + printing + persistence.
     public void process(BookingRequest req) {
