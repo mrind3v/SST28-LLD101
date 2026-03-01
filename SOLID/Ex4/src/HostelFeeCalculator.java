@@ -2,8 +2,12 @@ import java.util.*;
 
 public class HostelFeeCalculator {
     private final Repository repo;
+    private final IBookingIdGenerator iBookingIdGenerator;
 
-    public HostelFeeCalculator(Repository repo) { this.repo = repo; }
+    public HostelFeeCalculator(Repository repo, IBookingIdGenerator iBookingIdGenerator) {
+        this.repo = repo;
+        this.iBookingIdGenerator = iBookingIdGenerator;
+    }
 
     // OCP violation: switch + add-on branching + printing + persistence.
     public void process(BookingRequest req) {
