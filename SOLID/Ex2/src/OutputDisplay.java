@@ -1,3 +1,4 @@
 public interface OutputDisplay {
-    void  show(String message);
+    void showInvoice(String message);
+    void showSaveConfirmation(String id, int count);
 }

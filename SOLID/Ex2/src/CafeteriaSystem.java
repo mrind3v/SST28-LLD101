@@ -2,7 +2,6 @@ import java.util.*;
 
 public class CafeteriaSystem {
     private final Map<String, MenuItem> menu = new LinkedHashMap<>();
-    private final FileStore store = new FileStore();
     private final Repository repository;
     private final PricingCalculator pricingCalculator;
     private final InvoiceFormatter invoiceFormatter;
@@ -24,11 +23,11 @@ public class CafeteriaSystem {
 
         String invId =  iInvoiceIdGenerator.nextId();
         String printable = invoiceFormatter.format(invId, invoiceData);
-        outputDisplay.show(printable);
+        outputDisplay.showInvoice(printable);
 
 
-        repository.save(invId, printable);
-        outputDisplay.show("Saved invoice: " + invId + " (lines=" + repository.countLines(invId) + ")");
+        int orderLines = repository.save(invId, printable);
+        outputDisplay.showSaveConfirmation(invId, orderLines);
 
     }
 }
