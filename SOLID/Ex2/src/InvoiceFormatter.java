@@ -7,7 +7,7 @@ public class InvoiceFormatter {
         StringBuilder out = new StringBuilder();
         out.append("Invoice# ").append(invId).append("\n");
         for (String line : invoiceData.lines) {
-           out.append(line).append("\n");
+           out.append(line);
         }
         out.append(String.format("Subtotal: %.2f\n", invoiceData.subtotal));
         out.append(String.format("Tax(%.0f%%): %.2f\n", invoiceData.taxPct, invoiceData.tax));
