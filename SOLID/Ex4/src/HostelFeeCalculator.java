@@ -16,7 +16,7 @@ public class HostelFeeCalculator {
 
         ReceiptPrinter.print(req, monthly, deposit);
 
-        String bookingId = "H-" + (7000 + new Random(1).nextInt(1000)); // deterministic-ish
+        String bookingId = iBookingIdGenerator.nextId();
         repo.save(bookingId, req, monthly, deposit);
     }
 
