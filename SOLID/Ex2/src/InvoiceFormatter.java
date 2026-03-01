@@ -3,7 +3,7 @@ import java.util.Map;
 public class InvoiceFormatter {
 
 
-    public String format(String invId, int invoiceSeq,  InvoiceData invoiceData) {
+    public String format(String invId, InvoiceData invoiceData) {
         StringBuilder out = new StringBuilder();
         out.append("Invoice# ").append(invId).append("\n");
         for (String line : invoiceData.lines) {
