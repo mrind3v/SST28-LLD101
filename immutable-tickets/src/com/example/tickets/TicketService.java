@@ -18,9 +18,6 @@ public class TicketService {
 
     public IncidentTicket createTicket(String id, String reporterEmail, String title) {
         // scattered validation (incomplete on purpose)
-        if (id == null || id.trim().isEmpty()) throw new IllegalArgumentException("id required");
-        if (reporterEmail == null || !reporterEmail.contains("@")) throw new IllegalArgumentException("email invalid");
-        if (title == null || title.trim().isEmpty()) throw new IllegalArgumentException("title required");
 
         IncidentTicket t = new IncidentTicket(id, reporterEmail, title);
 
