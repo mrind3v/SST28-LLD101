@@ -65,4 +65,8 @@ public class MetricsRegistry implements Serializable {
     }
 
     // TODO: implement readResolve() to preserve singleton on deserialization
+    @Serial
+    protected Object readResolve() {
+        return getInstance();
+    }
 }
