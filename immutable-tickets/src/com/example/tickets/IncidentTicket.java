@@ -1,6 +1,7 @@
 package com.example.tickets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,7 +52,9 @@ public class IncidentTicket {
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public String getPriority() { return priority; }
-    public List<String> getTags() { return tags; } // BROKEN: leaks internal list
+    public List<String> getTags() {
+        return Collections.unmodifiableList(tags);
+    } // BROKEN: leaks internal list
     public String getAssigneeEmail() { return assigneeEmail; }
     public boolean isCustomerVisible() { return customerVisible; }
     public Integer getSlaMinutes() { return slaMinutes; }
