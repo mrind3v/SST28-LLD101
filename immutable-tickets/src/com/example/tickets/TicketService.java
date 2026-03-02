@@ -19,16 +19,15 @@ public class TicketService {
     public IncidentTicket createTicket(String id, String reporterEmail, String title) {
         // scattered validation (incomplete on purpose)
 
-        IncidentTicket t = new IncidentTicket(id, reporterEmail, title);
-
-        // BAD: mutating after creation
-        t.setPriority("MEDIUM");
-        t.setSource("CLI");
-        t.setCustomerVisible(false);
 
         List<String> tags = new ArrayList<>();
         tags.add("NEW");
-        t.setTags(tags);
+        IncidentTicket t = new IncidentTicket.Builder(id, reporterEmail, title)
+                .priority("MEDIUM")
+                .source("CLI")
+                .customerVisible(false)
+                .tags(tags)
+                .build();
 
         return t;
     }
