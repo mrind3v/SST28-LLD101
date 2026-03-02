@@ -60,6 +60,17 @@ public class IncidentTicket {
         this.source = builder.source;
 
     }
+    public Builder toBuilder() {
+    // We start a new builder with the current required fields
+    return new Builder(this.id, this.reporterEmail, this.title)
+        .description(this.description)
+        .priority(this.priority)
+        .assigneeEmail(this.assigneeEmail)
+        .customerVisible(this.customerVisible)
+        .slaMinutes(this.slaMinutes)
+        .source(this.source)
+        .tags(this.tags); // This uses your defensive copy logic!
+    }
     @Override
     public String toString() {
         return "IncidentTicket{" +
