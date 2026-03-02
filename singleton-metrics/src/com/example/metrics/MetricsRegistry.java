@@ -8,13 +8,13 @@ import java.util.Map;
 
 /**
  * INTENTION: Global metrics registry (should be a Singleton).
- *
+ * <p>
  * CURRENT STATE (BROKEN ON PURPOSE):
  * - Constructor is public -> anyone can create instances.
  * - getInstance() is lazy but NOT thread-safe -> can create multiple instances.
  * - Reflection can call the constructor to create more instances.
  * - Serialization can create a new instance when deserialized.
- *
+ * <p>
  * TODO (student):
  *  1) Make it a proper lazy, thread-safe singleton (private ctor)
  *  2) Block reflection-based multiple construction
@@ -39,7 +39,11 @@ public class MetricsRegistry implements Serializable {
     // BROKEN: racy lazy init; two threads can create two instances
     public static MetricsRegistry getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new MetricsRegistry();
+            synchronized (MetricsRegistry.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new MetricsRegistry();
+                }
+            }
         }
         return INSTANCE;
     }
