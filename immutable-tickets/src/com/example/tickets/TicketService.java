@@ -34,15 +34,21 @@ public class TicketService {
 
     public void escalateToCritical(IncidentTicket t) {
         // BAD: mutating ticket after it has been "created"
-        t.setPriority("CRITICAL");
-        t.getTags().add("ESCALATED"); // list leak
+        List<String> updatedTags = new ArrayList<>(t.getTags());
+        updatedTags.add("CRITICAL");
+
+        t.toBuilder()
+                .priority("CRITICAL")
+                .tags(updatedTags)
+                .build();
     }
 
     public void assign(IncidentTicket t, String assigneeEmail) {
         // scattered validation
-        if (assigneeEmail != null && !assigneeEmail.contains("@")) {
+        /*if (assigneeEmail != null && !assigneeEmail.contains("@")) {
             throw new IllegalArgumentException("assigneeEmail invalid");
         }
-        t.setAssigneeEmail(assigneeEmail);
+        t.setAssigneeEmail(assigneeEmail);*/
+        t.toBuilder().assigneeEmail(assigneeEmail).build();
     }
 }
