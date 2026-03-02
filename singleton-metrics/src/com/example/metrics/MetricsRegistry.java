@@ -29,8 +29,11 @@ public class MetricsRegistry implements Serializable {
     private final Map<String, Long> counters = new HashMap<>();
 
     // BROKEN: should be private and should prevent second construction
-    public MetricsRegistry() {
+    private MetricsRegistry() {
         // intentionally empty
+        if (INSTANCE != null) {
+            throw new IllegalStateException("Instance already exists. Use getInstance() instead.");
+        }
     }
 
     // BROKEN: racy lazy init; two threads can create two instances
