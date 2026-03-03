@@ -12,7 +12,8 @@ public class Main {
                 new AttendanceRule(input.minAttendance),
                 new CreditsRule(input.minCredits)
         );
-        EligibilityEngine engine = new EligibilityEngine(store, rules);
+        ReportPrinter printer = new ReportPrinter();
+        EligibilityEngine engine = new EligibilityEngine(store, rules, printer);
         engine.runAndPrint(s);
     }
 }

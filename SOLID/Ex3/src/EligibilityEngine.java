@@ -3,17 +3,18 @@ import java.util.*;
 public class EligibilityEngine {
     private final Repository repository;
     private final List<EligibilityRule> rules;
+    private final IReportPrinter reportPrinter;
 
 
-    public EligibilityEngine(Repository repository, List<EligibilityRule> rules) {
+    public EligibilityEngine(Repository repository, List<EligibilityRule> rules,  IReportPrinter reportPrinter) {
         this.repository = repository;
         this.rules = rules;
+        this.reportPrinter = reportPrinter;
     }
 
     public void runAndPrint(StudentProfile s) {
-        ReportPrinter p = new ReportPrinter();
         EligibilityEngineResult r = evaluate(s);
-        p.print(s, r);
+        reportPrinter.print(s,r);
         repository.save(s.rollNo, r.status);
     }
 
