@@ -9,11 +9,10 @@ public class Main {
         GymService gymService = new GymService();
         BookingRequest req = new BookingRequest(doubleSharing, List.of(laundaryService, messService));
         HostelFeeCalculator calc = new HostelFeeCalculator();
-        FeeSummary summary = calc.calculate(req);
-        ReceiptPrinter.print(req, summary.monthly, summary.deposit);
-        BookingIdGenerator bookingIdGenerator = new BookingIdGenerator();
         FakeBookingRepo fakeBookingRepo = new FakeBookingRepo();
-        fakeBookingRepo.save(bookingIdGenerator.nextId(),req,summary.monthly, summary.deposit);
+        BookingIdGenerator bookingIdGenerator = new BookingIdGenerator();
+        BookingService service = new BookingService(calc,fakeBookingRepo,bookingIdGenerator);
+        service.executeBooking(req);
     }
 
 }
