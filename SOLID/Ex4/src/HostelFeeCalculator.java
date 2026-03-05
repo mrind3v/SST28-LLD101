@@ -1,13 +1,11 @@
-import java.util.*;
-
 public class HostelFeeCalculator {
 
     // OCP violation: switch + add-on branching + printing + persistence.
-    public FeeSummary calculate(BookingRequest req) {
+    public FeeDTO calculate(BookingRequest req) {
         Money monthly = calculateMonthly(req);
         Money deposit = new Money(5000.00);
 
-        return new FeeSummary(monthly,deposit);
+        return new FeeDTO(monthly,deposit);
     }
 
     private Money calculateMonthly(BookingRequest req) {

@@ -9,7 +9,7 @@ public class BookingService {
     }
 
     public void executeBooking(BookingRequest req) {
-        FeeSummary summary = hostelFeeCalculator.calculate(req);
+        FeeDTO summary = hostelFeeCalculator.calculate(req);
         ReceiptPrinter.print(req, summary.monthly, summary.deposit);
         String bookingId = idGenerator.nextId();
         repository.save(bookingId,req,summary.monthly,summary.deposit);
