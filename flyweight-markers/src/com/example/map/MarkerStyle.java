@@ -10,11 +10,12 @@ package com.example.map;
  */
 public class MarkerStyle {
 
-    private String shape;   // e.g., PIN, CIRCLE, SQUARE
-    private String color;   // e.g., RED, BLUE, GREEN
-    private int size;       // e.g., 10..20
-    private boolean filled; // filled vs outline
+    private final String shape;   // e.g., PIN, CIRCLE, SQUARE
+    private final String color;   // e.g., RED, BLUE, GREEN
+    private final int size;       // e.g., 10..20
+    private final boolean filled; // filled vs outline
 
+    // We want MarkerStyle to be immutable, but we won't use the Builder pattern here as this class only has four fields
     public MarkerStyle(String shape, String color, int size, boolean filled) {
         this.shape = shape;
         this.color = color;
@@ -28,10 +29,10 @@ public class MarkerStyle {
     public boolean isFilled() { return filled; }
 
     // BROKEN: setters should go away after immutability refactor
-    public void setShape(String shape) { this.shape = shape; }
+    /*public void setShape(String shape) { this.shape = shape; }
     public void setColor(String color) { this.color = color; }
     public void setSize(int size) { this.size = size; }
-    public void setFilled(boolean filled) { this.filled = filled; }
+    public void setFilled(boolean filled) { this.filled = filled; }*/
 
     @Override
     public String toString() {
