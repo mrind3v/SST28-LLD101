@@ -18,8 +18,7 @@ public class MapMarker {
     // BROKEN: style is created per marker; should be shared
     private final MarkerStyle style;
 
-    public MapMarker(double lat, double lng, String label,
-                     String shape, String color, int size, boolean filled, MapMarkerStyle style) {
+    public MapMarker(double lat, double lng, String label, MapMarkerStyle style) {
         this.lat = lat;
         this.lng = lng;
         this.label = label;
