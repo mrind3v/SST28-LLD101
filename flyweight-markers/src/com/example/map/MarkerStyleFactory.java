@@ -17,7 +17,7 @@ public class MarkerStyleFactory {
 
     private final Map<String, MarkerStyle> cache = new HashMap<>();
 
-    public MarkerStyle get(String shape, String color, int size, boolean filled) {
+    public static MarkerStyle get(String shape, String color, int size, boolean filled) {
         String key = shape + "|" + color + "|" + size + "|" + (filled ? "F" : "O");
         // TODO: return cached instance if present; otherwise create, cache, and return.
         if (!cache.containsKey(key)) {
